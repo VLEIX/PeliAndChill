@@ -1,28 +1,25 @@
 package com.frantun.peliandchill.domain.usecase
 
-import com.frantun.peliandchill.common.Constants.ERROR_CONNECTION
 import com.frantun.peliandchill.common.Constants.ERROR_UNEXPECTED
 import com.frantun.peliandchill.common.Resource
-import com.frantun.peliandchill.domain.model.Series
+import com.frantun.peliandchill.data.remote.dto.SeriesDto
 import com.frantun.peliandchill.domain.repository.SeriesRepository
-import java.io.IOException
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
 
 class SearchSeriesByNameUseCase @Inject constructor(
     private val seriesRepository: SeriesRepository
 ) {
-    operator fun invoke(name: String): Flow<Resource<List<Series>>> = flow {
+    operator fun invoke(name: String): Flow<Resource<SeriesDto>> = flow {
         try {
-            emit(Resource.Loading<List<Series>>())
-            val series = seriesRepository.searchSeriesByName(name).series
-            emit(Resource.Success<List<Series>>(series))
-        } catch (e: HttpException) {
-            emit(Resource.Error<List<Series>>(e.localizedMessage ?: ERROR_UNEXPECTED))
-        } catch (e: IOException) {
-            emit(Resource.Error<List<Series>>(ERROR_CONNECTION))
+            emit(Resource.Loading<SeriesDto>())
+            val moviesResult = seriesRepository.searchSeriesByName(name)
+            moviesResult.data?.let {
+                emit(Resource.Success<SeriesDto>(it))
+            } ?: emit(Resource.Error<SeriesDto>(ERROR_UNEXPECTED))
+        } catch (exception: Exception) {
+            emit(Resource.Error<SeriesDto>(exception.message ?: ERROR_UNEXPECTED))
         }
     }
 }
