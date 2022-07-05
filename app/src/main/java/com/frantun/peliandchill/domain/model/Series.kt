@@ -28,5 +28,5 @@ data class Series(
     val name: String,
     @SerializedName("original_name")
     val originalName: String,
-    var type: String
+    var type: String?
 ) : Parcelable

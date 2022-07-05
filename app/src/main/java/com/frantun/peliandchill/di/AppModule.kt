@@ -1,6 +1,14 @@
 package com.frantun.peliandchill.di
 
 import com.frantun.peliandchill.BuildConfig
+import com.frantun.peliandchill.data.datasource.MoviesLocalDataSource
+import com.frantun.peliandchill.data.datasource.MoviesLocalDataSourceImpl
+import com.frantun.peliandchill.data.datasource.MoviesRemoteDataSource
+import com.frantun.peliandchill.data.datasource.MoviesRemoteDataSourceImpl
+import com.frantun.peliandchill.data.datasource.SeriesLocalDataSource
+import com.frantun.peliandchill.data.datasource.SeriesLocalDataSourceImpl
+import com.frantun.peliandchill.data.datasource.SeriesRemoteDataSource
+import com.frantun.peliandchill.data.datasource.SeriesRemoteDataSourceImpl
 import com.frantun.peliandchill.data.remote.MoviesApi
 import com.frantun.peliandchill.data.remote.SeriesApi
 import com.frantun.peliandchill.data.repository.MoviesRepositoryImpl
@@ -62,4 +70,15 @@ abstract class BindsModule {
     @Binds
     abstract fun providesSeriesRepository(seriesRepository: SeriesRepositoryImpl): SeriesRepository
 
+    @Binds
+    abstract fun providesMoviesLocalDataSource(moviesLocalDataSource: MoviesLocalDataSourceImpl): MoviesLocalDataSource
+
+    @Binds
+    abstract fun providesMoviesRemoteDataSource(moviesRemoteDataSource: MoviesRemoteDataSourceImpl): MoviesRemoteDataSource
+
+    @Binds
+    abstract fun providesSeriesLocalDataSource(seriesLocalDataSource: SeriesLocalDataSourceImpl): SeriesLocalDataSource
+
+    @Binds
+    abstract fun providesSeriesRemoteDataSource(seriesRemoteDataSource: SeriesRemoteDataSourceImpl): SeriesRemoteDataSource
 }
