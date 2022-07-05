@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.flow
 class SearchMovieByNameUseCase @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) {
-    operator fun invoke(name: String): Flow<Resource<MoviesDto>> = flow {
+    operator fun invoke(name: String, page: Int): Flow<Resource<MoviesDto>> = flow {
         try {
-            emit(Resource.Loading<MoviesDto>())
-            val moviesResult = moviesRepository.searchMovieByName(name)
+            emit(Resource.Loading())
+            val moviesResult = moviesRepository.searchMovieByName(name, page)
             moviesResult.data?.let {
-                emit(Resource.Success<MoviesDto>(it))
-            } ?: emit(Resource.Error<MoviesDto>(ERROR_UNEXPECTED))
+                emit(Resource.Success(it))
+            } ?: emit(Resource.Error(ERROR_UNEXPECTED))
         } catch (exception: Exception) {
-            emit(Resource.Error<MoviesDto>(exception.message ?: ERROR_UNEXPECTED))
+            emit(Resource.Error(exception.message ?: ERROR_UNEXPECTED))
         }
     }
 }

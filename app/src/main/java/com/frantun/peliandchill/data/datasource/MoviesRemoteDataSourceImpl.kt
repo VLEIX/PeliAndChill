@@ -11,19 +11,20 @@ class MoviesRemoteDataSourceImpl @Inject constructor(
     private val moviesApi: MoviesApi
 ) : BaseRemoteDataSource(), MoviesRemoteDataSource {
 
-    override suspend fun getPopularMovies(): Resource<MoviesDto> = getResult {
-        moviesApi.getPopularMovies()
+    override suspend fun getPopularMovies(page: Int): Resource<MoviesDto> = getResult {
+        moviesApi.getPopularMovies(page = page)
     }
 
-    override suspend fun getTopRatedMovies(): Resource<MoviesDto> = getResult {
-        moviesApi.getTopRatedMovies()
+    override suspend fun getTopRatedMovies(page: Int): Resource<MoviesDto> = getResult {
+        moviesApi.getTopRatedMovies(page = page)
     }
 
     override suspend fun getVideosFromMovie(movieId: Int): Resource<VideosDto> = getResult {
         moviesApi.getVideosFromMovie(movieId = movieId)
     }
 
-    override suspend fun searchMovieByName(name: String): Resource<MoviesDto> = getResult {
-        moviesApi.searchMovieByName(name = name)
-    }
+    override suspend fun searchMovieByName(name: String, page: Int): Resource<MoviesDto> =
+        getResult {
+            moviesApi.searchMovieByName(name = name, page = page)
+        }
 }

@@ -1,7 +1,8 @@
 package com.frantun.peliandchill.data.repository
 
 import com.frantun.peliandchill.common.Constants.ERROR_UNEXPECTED
-import com.frantun.peliandchill.common.Constants.PAGE_ZERO
+import com.frantun.peliandchill.common.Constants.PAGE_NEGATIVE
+import com.frantun.peliandchill.common.Constants.PAGE_ONE
 import com.frantun.peliandchill.common.Constants.TYPE_POPULAR
 import com.frantun.peliandchill.common.Constants.TYPE_TOP_RATED
 import com.frantun.peliandchill.common.Resource
@@ -11,6 +12,7 @@ import com.frantun.peliandchill.data.remote.dto.SeriesDto
 import com.frantun.peliandchill.data.remote.dto.VideosDto
 import com.frantun.peliandchill.domain.model.SeriesResult
 import com.frantun.peliandchill.domain.repository.SeriesRepository
+import java.util.Date
 import javax.inject.Inject
 
 class SeriesRepositoryImpl @Inject constructor(
@@ -18,9 +20,9 @@ class SeriesRepositoryImpl @Inject constructor(
     private val seriesRemoteDataSource: SeriesRemoteDataSource
 ) : SeriesRepository {
 
-    override suspend fun getPopularSeries(): Resource<SeriesResult> {
+    override suspend fun getPopularSeries(page: Int): Resource<SeriesResult> {
         return try {
-            when (val result = seriesRemoteDataSource.getPopularSeries()) {
+            when (val result = seriesRemoteDataSource.getPopularSeries(page)) {
                 is Resource.Success -> {
                     getPopularSeriesResultSuccess(result.data)?.let { seriesResult ->
                         Resource.Success(seriesResult)
@@ -28,7 +30,7 @@ class SeriesRepositoryImpl @Inject constructor(
                 }
                 is Resource.Error -> {
                     val seriesLocal = seriesLocalDataSource.getPopularSeries()
-                    val seriesResult = SeriesResult(seriesLocal, PAGE_ZERO)
+                    val seriesResult = SeriesResult(seriesLocal, PAGE_NEGATIVE)
                     Resource.Success(seriesResult)
                 }
                 else -> Resource.Error(ERROR_UNEXPECTED)
@@ -43,7 +45,11 @@ class SeriesRepositoryImpl @Inject constructor(
             val seriesRemote = seriesDto.series.map { series ->
                 series.apply {
                     type = TYPE_POPULAR
+                    timeStamp = Date()
                 }
+            }
+            if (seriesDto.page == PAGE_ONE) {
+                seriesLocalDataSource.deletePopularSeries()
             }
             seriesLocalDataSource.insertSeries(seriesRemote)
             val seriesLocal = seriesLocalDataSource.getPopularSeries()
@@ -51,9 +57,9 @@ class SeriesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTopRatedSeries(): Resource<SeriesResult> {
+    override suspend fun getTopRatedSeries(page: Int): Resource<SeriesResult> {
         return try {
-            when (val result = seriesRemoteDataSource.getTopRatedSeries()) {
+            when (val result = seriesRemoteDataSource.getTopRatedSeries(page)) {
                 is Resource.Success -> {
                     getTopRatedSeriesResultSuccess(result.data)?.let { seriesResult ->
                         Resource.Success(seriesResult)
@@ -61,7 +67,7 @@ class SeriesRepositoryImpl @Inject constructor(
                 }
                 is Resource.Error -> {
                     val seriesLocal = seriesLocalDataSource.getTopRatedSeries()
-                    val seriesResult = SeriesResult(seriesLocal, PAGE_ZERO)
+                    val seriesResult = SeriesResult(seriesLocal, PAGE_NEGATIVE)
                     Resource.Success(seriesResult)
                 }
                 else -> Resource.Error(ERROR_UNEXPECTED)
@@ -76,7 +82,11 @@ class SeriesRepositoryImpl @Inject constructor(
             val seriesRemote = seriesDto.series.map { series ->
                 series.apply {
                     type = TYPE_TOP_RATED
+                    timeStamp = Date()
                 }
+            }
+            if (seriesDto.page == PAGE_ONE) {
+                seriesLocalDataSource.deleteTopRatedSeries()
             }
             seriesLocalDataSource.insertSeries(seriesRemote)
             val seriesLocal = seriesLocalDataSource.getTopRatedSeries()
@@ -88,7 +98,7 @@ class SeriesRepositoryImpl @Inject constructor(
         return seriesRemoteDataSource.getVideosFromSeries(seriesId = seriesId)
     }
 
-    override suspend fun searchSeriesByName(name: String): Resource<SeriesDto> {
-        return seriesRemoteDataSource.searchSeriesByName(name = name)
+    override suspend fun searchSeriesByName(name: String, page: Int): Resource<SeriesDto> {
+        return seriesRemoteDataSource.searchSeriesByName(name = name, page = page)
     }
 }

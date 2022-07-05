@@ -21,4 +21,12 @@ class SeriesLocalDataSourceImpl @Inject constructor(
     override suspend fun getTopRatedSeries(): List<Series> {
         return seriesDao.getSeriesByType(TYPE_TOP_RATED)
     }
+
+    override suspend fun deletePopularSeries() {
+        return seriesDao.deleteSeriesByType(TYPE_POPULAR)
+    }
+
+    override suspend fun deleteTopRatedSeries() {
+        return seriesDao.deleteSeriesByType(TYPE_TOP_RATED)
+    }
 }

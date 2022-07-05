@@ -6,4 +6,6 @@ interface MoviesLocalDataSource {
     suspend fun insertMovies(movies: List<Movie>)
     suspend fun getPopularMovies(): List<Movie>
     suspend fun getTopRatedMovies(): List<Movie>
+    suspend fun deletePopularMovies()
+    suspend fun deleteTopRatedMovies()
 }

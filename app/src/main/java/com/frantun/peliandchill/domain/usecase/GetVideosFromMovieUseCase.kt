@@ -13,13 +13,13 @@ class GetVideosFromMovieUseCase @Inject constructor(
 ) {
     operator fun invoke(movieId: Int): Flow<Resource<List<Video>>> = flow {
         try {
-            emit(Resource.Loading<List<Video>>())
+            emit(Resource.Loading())
             val videosResult = moviesRepository.getVideosFromMovie(movieId)
             videosResult.data?.let {
-                emit(Resource.Success<List<Video>>(it.videos))
-            } ?: emit(Resource.Error<List<Video>>(ERROR_UNEXPECTED))
+                emit(Resource.Success(it.videos))
+            } ?: emit(Resource.Error(ERROR_UNEXPECTED))
         } catch (exception: Exception) {
-            emit(Resource.Error<List<Video>>(exception.message ?: ERROR_UNEXPECTED))
+            emit(Resource.Error(exception.message ?: ERROR_UNEXPECTED))
         }
     }
 }

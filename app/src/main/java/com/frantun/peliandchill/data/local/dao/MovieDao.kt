@@ -9,9 +9,12 @@ import com.frantun.peliandchill.domain.model.Movie
 @Dao
 interface MovieDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMovies(movies: List<Movie>)
 
-    @Query("SELECT * FROM movies WHERE type=:type")
+    @Query("SELECT * FROM movies WHERE type = :type ORDER BY timeStamp")
     suspend fun getMoviesByType(type: String): List<Movie>
+
+    @Query("DELETE FROM movies WHERE type = :type")
+    suspend fun deleteMoviesByType(type: String)
 }

@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.flow
 class GetPopularSeriesUseCase @Inject constructor(
     private val seriesRepository: SeriesRepository
 ) {
-    operator fun invoke(): Flow<Resource<SeriesResult>> = flow {
+    operator fun invoke(page: Int): Flow<Resource<SeriesResult>> = flow {
         try {
-            emit(Resource.Loading<SeriesResult>())
-            val moviesResult = seriesRepository.getPopularSeries()
+            emit(Resource.Loading())
+            val moviesResult = seriesRepository.getPopularSeries(page)
             moviesResult.data?.let {
-                emit(Resource.Success<SeriesResult>(it))
-            } ?: emit(Resource.Error<SeriesResult>(ERROR_UNEXPECTED))
+                emit(Resource.Success(it))
+            } ?: emit(Resource.Error(ERROR_UNEXPECTED))
         } catch (exception: Exception) {
-            emit(Resource.Error<SeriesResult>(exception.message ?: ERROR_UNEXPECTED))
+            emit(Resource.Error(exception.message ?: ERROR_UNEXPECTED))
         }
     }
 }

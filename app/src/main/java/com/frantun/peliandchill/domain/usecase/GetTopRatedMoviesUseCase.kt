@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.flow
 class GetTopRatedMoviesUseCase @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) {
-    operator fun invoke(): Flow<Resource<MoviesResult>> = flow {
+    operator fun invoke(page: Int): Flow<Resource<MoviesResult>> = flow {
         try {
-            emit(Resource.Loading<MoviesResult>())
-            val moviesResult = moviesRepository.getTopRatedMovies()
+            emit(Resource.Loading())
+            val moviesResult = moviesRepository.getTopRatedMovies(page)
             moviesResult.data?.let {
-                emit(Resource.Success<MoviesResult>(it))
-            } ?: emit(Resource.Error<MoviesResult>(ERROR_UNEXPECTED))
+                emit(Resource.Success(it))
+            } ?: emit(Resource.Error(ERROR_UNEXPECTED))
         } catch (exception: Exception) {
-            emit(Resource.Error<MoviesResult>(exception.message ?: ERROR_UNEXPECTED))
+            emit(Resource.Error(exception.message ?: ERROR_UNEXPECTED))
         }
     }
 }

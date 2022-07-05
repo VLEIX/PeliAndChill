@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_200dp"
+    android:layout_marginStart="@dimen/dimen_12dp"
+    android:layout_marginTop="@dimen/dimen_4dp"
+    android:layout_marginEnd="@dimen/dimen_12dp"
+    android:layout_marginBottom="@dimen/dimen_4dp"
+    app:cardCornerRadius="@dimen/dimen_4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/poster_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/movies_image_content_description"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/dimen_20dp"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:shadowColor="@color/shadow_text"
+            android:shadowDx="@dimen/shadowDx"
+            android:shadowDy="@dimen/shadowDy"
+            android:shadowRadius="@dimen/shadowRadius"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_18sp"
+            tools:text="Movie" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

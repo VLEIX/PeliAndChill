@@ -21,4 +21,12 @@ class MoviesLocalDataSourceImpl @Inject constructor(
     override suspend fun getTopRatedMovies(): List<Movie> {
         return movieDao.getMoviesByType(TYPE_TOP_RATED)
     }
+
+    override suspend fun deletePopularMovies() {
+        return movieDao.deleteMoviesByType(TYPE_POPULAR)
+    }
+
+    override suspend fun deleteTopRatedMovies() {
+        return movieDao.deleteMoviesByType(TYPE_TOP_RATED)
+    }
 }

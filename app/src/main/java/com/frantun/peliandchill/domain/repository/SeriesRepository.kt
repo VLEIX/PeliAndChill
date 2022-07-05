@@ -6,8 +6,8 @@ import com.frantun.peliandchill.data.remote.dto.VideosDto
 import com.frantun.peliandchill.domain.model.SeriesResult
 
 interface SeriesRepository {
-    suspend fun getPopularSeries(): Resource<SeriesResult>
-    suspend fun getTopRatedSeries(): Resource<SeriesResult>
+    suspend fun getPopularSeries(page: Int): Resource<SeriesResult>
+    suspend fun getTopRatedSeries(page: Int): Resource<SeriesResult>
     suspend fun getVideosFromSeries(seriesId: Int): Resource<VideosDto>
-    suspend fun searchSeriesByName(name: String): Resource<SeriesDto>
+    suspend fun searchSeriesByName(name: String, page: Int): Resource<SeriesDto>
 }

@@ -1,47 +1,44 @@
 package com.frantun.peliandchill.presentation.ui.home
 
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.frantun.peliandchill.R
-import com.frantun.peliandchill.presentation.ui.home.model.HomeState
+import com.frantun.peliandchill.databinding.ActivityHomeBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
-    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    onStateUpdated(state)
-                }
-            }
-        }
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setBottomNavigation()
     }
 
-    private fun onStateUpdated(state: HomeState?) {
-        when (state) {
-            is HomeState.Loading -> {
-                Log.d("HomeState", "Loading")
-            }
-            is HomeState.Init -> {
-                Log.d("HomeState", "Init")
-            }
-            is HomeState.Initialized -> {
-                Log.d("HomeState", "Initialized")
-            }
-            else -> Unit
-        }
+    private fun setBottomNavigation() {
+        val navView: BottomNavigationView = binding.homeNavView
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
+        val navController = navHostFragment.findNavController()
+
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_movies, R.id.navigation_series, R.id.navigation_profile
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 }

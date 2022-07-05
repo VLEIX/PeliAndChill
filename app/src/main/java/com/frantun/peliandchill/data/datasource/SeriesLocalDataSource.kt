@@ -6,4 +6,6 @@ interface SeriesLocalDataSource {
     suspend fun insertSeries(series: List<Series>)
     suspend fun getPopularSeries(): List<Series>
     suspend fun getTopRatedSeries(): List<Series>
+    suspend fun deletePopularSeries()
+    suspend fun deleteTopRatedSeries()
 }
