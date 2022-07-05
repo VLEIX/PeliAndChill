@@ -20,18 +20,18 @@ interface MoviesApi {
     suspend fun getTopRatedMovies(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("page") page: Int = 1
-    ): MoviesDto
+    ): Response<MoviesDto>
 
     @GET("movie/{id}/videos")
     suspend fun getVideosFromMovie(
         @Path("id") movieId: Int,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY
-    ): VideosDto
+    ): Response<VideosDto>
 
     @GET("search/movie")
     suspend fun searchMovieByName(
         @Query("query") name: String,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("page") page: Int = 1
-    ): MoviesDto
+    ): Response<MoviesDto>
 }

@@ -1,5 +1,7 @@
 package com.frantun.peliandchill.data.datasource
 
+import com.frantun.peliandchill.common.BaseRemoteDataSource
+import com.frantun.peliandchill.common.Resource
 import com.frantun.peliandchill.data.remote.SeriesApi
 import com.frantun.peliandchill.data.remote.dto.SeriesDto
 import com.frantun.peliandchill.data.remote.dto.VideosDto
@@ -7,21 +9,21 @@ import javax.inject.Inject
 
 class SeriesRemoteDataSourceImpl @Inject constructor(
     private val seriesApi: SeriesApi
-) : SeriesRemoteDataSource {
+) : BaseRemoteDataSource(), SeriesRemoteDataSource {
 
-    override suspend fun getTopRatedSeries(): SeriesDto {
-        return seriesApi.getTopRatedSeries()
+    override suspend fun getTopRatedSeries(): Resource<SeriesDto> = getResult {
+        seriesApi.getTopRatedSeries()
     }
 
-    override suspend fun getPopularSeries(): SeriesDto {
-        return seriesApi.getPopularSeries()
+    override suspend fun getPopularSeries(): Resource<SeriesDto> = getResult {
+        seriesApi.getPopularSeries()
     }
 
-    override suspend fun getVideosFromSeries(seriesId: Int): VideosDto {
-        return seriesApi.getVideosFromSeries(seriesId)
+    override suspend fun getVideosFromSeries(seriesId: Int): Resource<VideosDto> = getResult {
+        seriesApi.getVideosFromSeries(seriesId)
     }
 
-    override suspend fun searchSeriesByName(name: String): SeriesDto {
-        return seriesApi.searchSeriesByName(name)
+    override suspend fun searchSeriesByName(name: String): Resource<SeriesDto> = getResult {
+        seriesApi.searchSeriesByName(name)
     }
 }

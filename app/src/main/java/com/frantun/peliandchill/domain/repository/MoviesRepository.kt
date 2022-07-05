@@ -7,7 +7,7 @@ import com.frantun.peliandchill.domain.model.MoviesResult
 
 interface MoviesRepository {
     suspend fun getPopularMovies(): Resource<MoviesResult>
-    suspend fun getTopRatedMovies(): MoviesDto
-    suspend fun getVideosFromMovie(movieId: Int): VideosDto
-    suspend fun searchMovieByName(name: String): MoviesDto
+    suspend fun getTopRatedMovies(): Resource<MoviesResult>
+    suspend fun getVideosFromMovie(movieId: Int): Resource<VideosDto>
+    suspend fun searchMovieByName(name: String): Resource<MoviesDto>
 }

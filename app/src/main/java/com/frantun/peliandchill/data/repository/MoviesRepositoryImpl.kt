@@ -3,6 +3,7 @@ package com.frantun.peliandchill.data.repository
 import com.frantun.peliandchill.common.Constants.ERROR_UNEXPECTED
 import com.frantun.peliandchill.common.Constants.PAGE_ZERO
 import com.frantun.peliandchill.common.Constants.TYPE_POPULAR
+import com.frantun.peliandchill.common.Constants.TYPE_TOP_RATED
 import com.frantun.peliandchill.common.Resource
 import com.frantun.peliandchill.data.datasource.MoviesLocalDataSource
 import com.frantun.peliandchill.data.datasource.MoviesRemoteDataSource
@@ -50,15 +51,44 @@ class MoviesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTopRatedMovies(): MoviesDto {
-        return moviesRemoteDataSource.getTopRatedMovies()
+    override suspend fun getTopRatedMovies(): Resource<MoviesResult> {
+        return try {
+            when (val result = moviesRemoteDataSource.getTopRatedMovies()) {
+                is Resource.Success -> {
+                    getTopRatedMoviesResultSuccess(result.data)?.let { moviesResult ->
+                        Resource.Success(moviesResult)
+                    } ?: Resource.Error(ERROR_UNEXPECTED)
+                }
+                is Resource.Error -> {
+                    val moviesLocal = moviesLocalDataSource.getTopRatedMovies()
+                    val moviesResult = MoviesResult(moviesLocal, PAGE_ZERO)
+                    Resource.Success(moviesResult)
+                }
+                else -> Resource.Error(ERROR_UNEXPECTED)
+            }
+        } catch (exception: Exception) {
+            Resource.Error(exception.message ?: exception.toString())
+        }
     }
 
-    override suspend fun getVideosFromMovie(movieId: Int): VideosDto {
+    private suspend fun getTopRatedMoviesResultSuccess(moviesDto: MoviesDto?): MoviesResult? {
+        return moviesDto?.let {
+            val moviesRemote = moviesDto.movies.map { movie ->
+                movie.apply {
+                    type = TYPE_TOP_RATED
+                }
+            }
+            moviesLocalDataSource.insertMovies(moviesRemote)
+            val moviesLocal = moviesLocalDataSource.getTopRatedMovies()
+            MoviesResult(moviesLocal, moviesDto.page)
+        }
+    }
+
+    override suspend fun getVideosFromMovie(movieId: Int): Resource<VideosDto> {
         return moviesRemoteDataSource.getVideosFromMovie(movieId = movieId)
     }
 
-    override suspend fun searchMovieByName(name: String): MoviesDto {
+    override suspend fun searchMovieByName(name: String): Resource<MoviesDto> {
         return moviesRemoteDataSource.searchMovieByName(name = name)
     }
 }
