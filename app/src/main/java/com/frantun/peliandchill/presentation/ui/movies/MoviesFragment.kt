@@ -21,6 +21,7 @@ import com.frantun.peliandchill.domain.model.Movie
 import com.frantun.peliandchill.other.navigateTo
 import com.frantun.peliandchill.other.setAsGone
 import com.frantun.peliandchill.other.setAsVisible
+import com.frantun.peliandchill.other.setSafeOnClickListener
 import com.frantun.peliandchill.presentation.common.BaseFragment
 import com.frantun.peliandchill.presentation.ui.movies.adapter.MoviesAdapter
 import com.frantun.peliandchill.presentation.ui.movies.model.MoviesState
@@ -52,6 +53,12 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.initState()
+    }
+
     private fun setUi() {
         binding.toolbar.apply {
             title = getString(R.string.title_movies)
@@ -74,18 +81,13 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
 
         binding.tabBar.apply {
             tabItem1.apply {
-                setOnClickListener {
-                    selectedTabItem.animate().x(0F).duration = 100
-
+                setSafeOnClickListener {
                     viewModel.categoryTypeFlow.value = Constants.CategoryType.TYPE_POPULAR
                 }
                 text = getString(R.string.type_popular)
             }
             tabItem2.apply {
-                setOnClickListener {
-                    val tabItem2Width = tabItem2.width
-                    selectedTabItem.animate().x(tabItem2Width.toFloat()).duration = 100
-
+                setSafeOnClickListener {
                     viewModel.categoryTypeFlow.value = Constants.CategoryType.TYPE_TOP_RATED
                 }
                 text = getString(R.string.type_top_rated)
@@ -113,16 +115,33 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
         }
     }
 
+    private fun selectTabItem1() {
+        binding.tabBar.selectedTabItem.animate().x(0F).duration = 100
+    }
+
+    private fun selectTabItem2() {
+        binding.tabBar.selectedTabItem.apply {
+            post {
+                animate().x(binding.tabBar.selectedTabItem.width.toFloat()).duration = 100
+            }
+        }
+    }
+
     private fun onStateUpdated(state: MoviesState?) {
         when (state) {
-            is MoviesState.SelectedCategoryType -> onSelectedCategoryType()
+            is MoviesState.SelectedCategoryType -> onSelectedCategoryType(state.categoryType)
             is MoviesState.ShowLoading -> onShowLoading()
             is MoviesState.RetrievedMovies -> onRetrievedMovies(state.movies)
             else -> Unit
         }
     }
 
-    private fun onSelectedCategoryType() {
+    private fun onSelectedCategoryType(categoryType: Constants.CategoryType) {
+        when (categoryType) {
+            Constants.CategoryType.TYPE_POPULAR -> selectTabItem1()
+            Constants.CategoryType.TYPE_TOP_RATED -> selectTabItem2()
+        }
+
         viewModel.lastItemIndexFlow.value = 0
     }
 

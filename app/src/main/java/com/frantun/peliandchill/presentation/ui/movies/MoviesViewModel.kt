@@ -29,19 +29,21 @@ class MoviesViewModel @Inject constructor(
     val state: StateFlow<MoviesState?> get() = _state
 
     val lastItemIndexFlow = MutableStateFlow<Int?>(null)
-    val categoryTypeFlow = MutableStateFlow(Constants.CategoryType.TYPE_POPULAR)
+    val categoryTypeFlow = MutableStateFlow<Constants.CategoryType?>(null)
 
     private var categoryType = Constants.CategoryType.TYPE_POPULAR
-    private var page: Int = PAGE_ZERO
+    private var page = PAGE_ZERO
     private var movies: List<Movie> = emptyList()
 
     init {
         viewModelScope.launch {
             categoryTypeFlow.collect {
-                categoryType = it
-                page = PAGE_ZERO
+                it?.let {
+                    categoryType = it
+                    page = PAGE_ZERO
 
-                _state.value = MoviesState.SelectedCategoryType
+                    _state.value = MoviesState.SelectedCategoryType(categoryType)
+                }
             }
         }
 
@@ -52,6 +54,10 @@ class MoviesViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun initState() {
+        _state.value = MoviesState.SelectedCategoryType(categoryType)
     }
 
     private fun tryToGetMovies(lastItemIndex: Int) {
