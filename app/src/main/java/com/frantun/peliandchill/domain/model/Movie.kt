@@ -4,14 +4,13 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import java.util.Date
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "movies")
 @Parcelize
 data class Movie(
     @PrimaryKey
-    val id: Int,
+    val id: String,
     @SerializedName("poster_path")
     val posterPath: String?,
     val adult: Boolean,
@@ -32,5 +31,5 @@ data class Movie(
     @SerializedName("vote_average")
     val voteAverage: Double,
     var type: String?,
-    var timeStamp: Date?
+    var order: Int?
 ) : Parcelable

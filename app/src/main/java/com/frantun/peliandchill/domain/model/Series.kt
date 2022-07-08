@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Series(
     @PrimaryKey
-    val id: Int,
+    val id: String,
     @SerializedName("poster_path")
     val posterPath: String?,
     val popularity: Double,

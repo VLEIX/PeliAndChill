@@ -12,7 +12,7 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMovies(movies: List<Movie>)
 
-    @Query("SELECT * FROM movies WHERE type = :type ORDER BY timeStamp")
+    @Query("SELECT * FROM movies WHERE type = :type ORDER BY rowId")
     suspend fun getMoviesByType(type: String): List<Movie>
 
     @Query("DELETE FROM movies WHERE type = :type")

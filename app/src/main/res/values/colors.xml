@@ -8,5 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="shadow_text">#676767</color>
+    <color name="yellow">#E6B91E</color>
+    <color name="yellow_2">#C39400</color>
+    <color name="yellow_3">#775A00</color>
+    <color name="black_alpha">#D0000000</color>
+    <color name="gray">#676767</color>
+    <color name="white_2">#F1F1F1</color>
 </resources>

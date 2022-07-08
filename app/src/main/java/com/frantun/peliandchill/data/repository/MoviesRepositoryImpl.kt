@@ -12,7 +12,6 @@ import com.frantun.peliandchill.data.remote.dto.MoviesDto
 import com.frantun.peliandchill.data.remote.dto.VideosDto
 import com.frantun.peliandchill.domain.model.MoviesResult
 import com.frantun.peliandchill.domain.repository.MoviesRepository
-import java.util.Date
 import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(
@@ -45,7 +44,6 @@ class MoviesRepositoryImpl @Inject constructor(
             val moviesRemote = moviesDto.movies.map { movie ->
                 movie.apply {
                     type = TYPE_POPULAR
-                    timeStamp = Date()
                 }
             }
             if (moviesDto.page == PAGE_ONE) {
@@ -82,7 +80,6 @@ class MoviesRepositoryImpl @Inject constructor(
             val moviesRemote = moviesDto.movies.map { movie ->
                 movie.apply {
                     type = TYPE_TOP_RATED
-                    timeStamp = Date()
                 }
             }
             if (moviesDto.page == PAGE_ONE) {
