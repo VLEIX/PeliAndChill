@@ -11,12 +11,12 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.frantun.peliandchill.R
 import com.frantun.peliandchill.common.Constants.URL_TMDB_IMAGE_W500
-import com.frantun.peliandchill.common.ItemAdapterListener
+import com.frantun.peliandchill.common.MovieAdapterListener
 import com.frantun.peliandchill.databinding.ViewMovieBinding
 import com.frantun.peliandchill.databinding.ViewMovieHeaderBinding
 import com.frantun.peliandchill.domain.model.Movie
 
-class MoviesAdapter(private val listener: ItemAdapterListener) :
+class MoviesAdapter(private val listener: MovieAdapterListener) :
     ListAdapter<Movie, RecyclerView.ViewHolder>(MoviesAdapterDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -51,7 +51,7 @@ class MoviesAdapter(private val listener: ItemAdapterListener) :
     class MovieHeaderViewHolder constructor(private val binding: ViewMovieHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Movie, listener: ItemAdapterListener) {
+        fun bind(item: Movie, listener: MovieAdapterListener) {
             binding.apply {
                 titleTextView.text = item.title
                 val voteAverage = String.format(
@@ -68,7 +68,7 @@ class MoviesAdapter(private val listener: ItemAdapterListener) :
             itemView.apply {
                 animation = AnimationUtils.loadAnimation(itemView.context, R.anim.alpha)
                 setOnClickListener {
-                    listener.onClick(bindingAdapterPosition)
+                    listener.onClick(item)
                 }
             }
         }
@@ -77,7 +77,7 @@ class MoviesAdapter(private val listener: ItemAdapterListener) :
     class MovieViewHolder constructor(private val binding: ViewMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Movie, listener: ItemAdapterListener) {
+        fun bind(item: Movie, listener: MovieAdapterListener) {
             binding.apply {
                 titleTextView.text = item.title
                 releaseDateTextView.text = item.releaseDate
@@ -95,7 +95,7 @@ class MoviesAdapter(private val listener: ItemAdapterListener) :
             itemView.apply {
                 animation = AnimationUtils.loadAnimation(itemView.context, R.anim.alpha)
                 setOnClickListener {
-                    listener.onClick(bindingAdapterPosition)
+                    listener.onClick(item)
                 }
             }
         }

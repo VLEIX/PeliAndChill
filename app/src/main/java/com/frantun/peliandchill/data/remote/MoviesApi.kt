@@ -24,7 +24,7 @@ interface MoviesApi {
 
     @GET("movie/{id}/videos")
     suspend fun getVideosFromMovie(
-        @Path("id") movieId: Int,
+        @Path("id") movieId: String,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ): Response<VideosDto>
 

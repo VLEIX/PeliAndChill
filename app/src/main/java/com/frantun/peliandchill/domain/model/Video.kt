@@ -19,4 +19,6 @@ data class Video(
     val official: Boolean,
     @SerializedName("published_at")
     val publishedAt: String,
+    var posterPath: String?,
+    var backdropPath: String?
 ) : Parcelable

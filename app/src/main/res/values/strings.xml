@@ -9,6 +9,8 @@
     <string name="title_search">Buscar</string>
     <string name="title_search_movie">Buscar película</string>
     <string name="title_search_series">Buscar serie</string>
+    <string name="title_movie_detail">Detalle de la película</string>
+    <string name="title_series_detail">Detalle de la serie</string>
     <string name="vote_average">%s/10</string>
     <string name="type_popular">Popular</string>
     <string name="type_top_rated">Top Rated</string>
@@ -18,9 +20,19 @@
     <!-- Movies -->
     <string name="movies_poster_content_description">Poster de la película</string>
 
+    <!-- Series -->
+    <string name="series_poster_content_description">Poster de la serie</string>
+
     <!-- Search Movie -->
     <string name="search_movie_by_name">Buscar película por nombre…</string>
 
     <!-- Search Series -->
     <string name="search_series_by_name">Buscar serie por nombre…</string>
+
+    <!-- Movie Detail -->
+    <string name="movie_detail_vote_average_label">CALIFICACIÓN</string>
+    <string name="movie_detail_vote_count_label">VOTOS</string>
+    <string name="movie_detail_language_label">LENGUAJE</string>
+    <string name="movie_detail_videos_label">Videos relacionados</string>
+    <string name="movie_detail_video_content_description">Video de la película</string>
 </resources>

@@ -31,7 +31,7 @@ class MoviesViewModel @Inject constructor(
     val lastItemIndexFlow = MutableStateFlow<Int?>(null)
     val categoryTypeFlow = MutableStateFlow<Constants.CategoryType?>(null)
 
-    private var categoryType = Constants.CategoryType.TYPE_POPULAR
+    private lateinit var categoryType: Constants.CategoryType
     private var page = PAGE_ZERO
     private var movies: List<Movie> = emptyList()
 
@@ -43,6 +43,7 @@ class MoviesViewModel @Inject constructor(
                     page = PAGE_ZERO
 
                     _state.value = MoviesState.SelectedCategoryType(categoryType)
+                    tryToGetMovies(0)
                 }
             }
         }
@@ -57,6 +58,9 @@ class MoviesViewModel @Inject constructor(
     }
 
     fun initState() {
+        if (!this::categoryType.isInitialized) {
+            categoryTypeFlow.value = Constants.CategoryType.TYPE_POPULAR
+        }
         _state.value = MoviesState.SelectedCategoryType(categoryType)
     }
 

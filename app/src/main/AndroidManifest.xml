@@ -20,6 +20,7 @@
         <activity
             android:name=".presentation.ui.home.HomeActivity"
             android:exported="true"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Theme.PeliAndChill"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -28,5 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.ui.detail.DetailActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.PeliAndChill"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 </manifest>

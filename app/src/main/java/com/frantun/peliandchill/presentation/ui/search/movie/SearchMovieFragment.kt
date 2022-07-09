@@ -12,14 +12,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.frantun.peliandchill.R
-import com.frantun.peliandchill.common.ItemAdapterListener
+import com.frantun.peliandchill.common.MovieAdapterListener
 import com.frantun.peliandchill.databinding.FragmentSearchMovieBinding
 import com.frantun.peliandchill.domain.model.Movie
 import com.frantun.peliandchill.other.hideKeyboard
+import com.frantun.peliandchill.other.navigateTo
 import com.frantun.peliandchill.other.setAsGone
 import com.frantun.peliandchill.other.setAsVisible
 import com.frantun.peliandchill.other.showKeyboard
 import com.frantun.peliandchill.presentation.common.BaseFragment
+import com.frantun.peliandchill.presentation.ui.detail.DetailActivity
 import com.frantun.peliandchill.presentation.ui.movies.adapter.MoviesAdapter
 import com.frantun.peliandchill.presentation.ui.search.movie.model.SearchMovieState
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,8 +37,8 @@ class SearchMovieFragment :
     private val viewModel: SearchMovieViewModel by viewModels()
 
     private val moviesAdapter by lazy {
-        MoviesAdapter(ItemAdapterListener {
-
+        MoviesAdapter(MovieAdapterListener {
+            navigateToMovieDetail(it)
         })
     }
 
@@ -159,6 +161,10 @@ class SearchMovieFragment :
             }
         }
         moviesAdapter.submitList(movies)
+    }
+
+    private fun navigateToMovieDetail(movie: Movie) {
+        navigateTo(DetailActivity.newIntentMovie(requireActivity(), movie))
     }
 
     companion object {

@@ -68,7 +68,7 @@
                 android:id="@+id/search_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_40dp"
-                android:background="@drawable/background_tab_bar"
+                android:background="@drawable/background_round_corner"
                 android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="@dimen/dimen_12dp"
                 android:hint="@string/search_movie_by_name"

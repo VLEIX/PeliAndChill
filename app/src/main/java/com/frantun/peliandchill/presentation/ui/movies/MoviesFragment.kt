@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.frantun.peliandchill.R
 import com.frantun.peliandchill.common.Constants
-import com.frantun.peliandchill.common.ItemAdapterListener
+import com.frantun.peliandchill.common.MovieAdapterListener
 import com.frantun.peliandchill.databinding.FragmentMoviesBinding
 import com.frantun.peliandchill.domain.model.Movie
 import com.frantun.peliandchill.other.navigateTo
@@ -23,6 +23,7 @@ import com.frantun.peliandchill.other.setAsGone
 import com.frantun.peliandchill.other.setAsVisible
 import com.frantun.peliandchill.other.setSafeOnClickListener
 import com.frantun.peliandchill.presentation.common.BaseFragment
+import com.frantun.peliandchill.presentation.ui.detail.DetailActivity
 import com.frantun.peliandchill.presentation.ui.movies.adapter.MoviesAdapter
 import com.frantun.peliandchill.presentation.ui.movies.model.MoviesState
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,8 +35,8 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
     private val viewModel: MoviesViewModel by viewModels()
 
     private val moviesAdapter by lazy {
-        MoviesAdapter(ItemAdapterListener {
-
+        MoviesAdapter(MovieAdapterListener {
+            navigateToMovieDetail(it)
         })
     }
 
@@ -81,16 +82,16 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
 
         binding.tabBar.apply {
             tabItem1.apply {
+                text = getString(R.string.type_popular)
                 setSafeOnClickListener {
                     viewModel.categoryTypeFlow.value = Constants.CategoryType.TYPE_POPULAR
                 }
-                text = getString(R.string.type_popular)
             }
             tabItem2.apply {
+                text = getString(R.string.type_top_rated)
                 setSafeOnClickListener {
                     viewModel.categoryTypeFlow.value = Constants.CategoryType.TYPE_TOP_RATED
                 }
-                text = getString(R.string.type_top_rated)
             }
         }
 
@@ -141,8 +142,6 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
             Constants.CategoryType.TYPE_POPULAR -> selectTabItem1()
             Constants.CategoryType.TYPE_TOP_RATED -> selectTabItem2()
         }
-
-        viewModel.lastItemIndexFlow.value = 0
     }
 
     private fun onShowLoading() {
@@ -157,5 +156,9 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
     private fun navigateToSearchMovie() {
         val action = MoviesFragmentDirections.moviesToSearchMovieAction()
         navigateTo(action)
+    }
+
+    private fun navigateToMovieDetail(movie: Movie) {
+        navigateTo(DetailActivity.newIntentMovie(requireActivity(), movie))
     }
 }

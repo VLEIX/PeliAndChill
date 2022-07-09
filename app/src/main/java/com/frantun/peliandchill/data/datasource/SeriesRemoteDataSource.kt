@@ -7,6 +7,6 @@ import com.frantun.peliandchill.data.remote.dto.VideosDto
 interface SeriesRemoteDataSource {
     suspend fun getTopRatedSeries(page: Int): Resource<SeriesDto>
     suspend fun getPopularSeries(page: Int): Resource<SeriesDto>
-    suspend fun getVideosFromSeries(seriesId: Int): Resource<VideosDto>
+    suspend fun getVideosFromSeries(seriesId: String): Resource<VideosDto>
     suspend fun searchSeriesByName(name: String, page: Int): Resource<SeriesDto>
 }

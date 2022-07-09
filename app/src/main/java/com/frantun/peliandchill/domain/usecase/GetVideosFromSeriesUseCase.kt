@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 class GetVideosFromSeriesUseCase @Inject constructor(
     private val seriesRepository: SeriesRepository
 ) {
-    operator fun invoke(movieId: Int): Flow<Resource<List<Video>>> = flow {
+    operator fun invoke(movieId: String): Flow<Resource<List<Video>>> = flow {
         try {
             emit(Resource.Loading())
             val videosResult = seriesRepository.getVideosFromSeries(movieId)

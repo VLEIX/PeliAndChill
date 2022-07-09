@@ -24,7 +24,7 @@ interface SeriesApi {
 
     @GET("tv/{id}/videos")
     suspend fun getVideosFromSeries(
-        @Path("id") seriesId: Int,
+        @Path("id") seriesId: String,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ): Response<VideosDto>
 

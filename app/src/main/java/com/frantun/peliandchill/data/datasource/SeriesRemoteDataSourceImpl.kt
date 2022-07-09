@@ -19,7 +19,7 @@ class SeriesRemoteDataSourceImpl @Inject constructor(
         seriesApi.getPopularSeries(page = page)
     }
 
-    override suspend fun getVideosFromSeries(seriesId: Int): Resource<VideosDto> = getResult {
+    override suspend fun getVideosFromSeries(seriesId: String): Resource<VideosDto> = getResult {
         seriesApi.getVideosFromSeries(seriesId)
     }
 

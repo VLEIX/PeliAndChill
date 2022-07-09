@@ -19,7 +19,7 @@ class MoviesRemoteDataSourceImpl @Inject constructor(
         moviesApi.getTopRatedMovies(page = page)
     }
 
-    override suspend fun getVideosFromMovie(movieId: Int): Resource<VideosDto> = getResult {
+    override suspend fun getVideosFromMovie(movieId: String): Resource<VideosDto> = getResult {
         moviesApi.getVideosFromMovie(movieId = movieId)
     }
 

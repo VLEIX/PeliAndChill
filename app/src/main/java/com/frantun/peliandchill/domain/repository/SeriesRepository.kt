@@ -8,6 +8,6 @@ import com.frantun.peliandchill.domain.model.SeriesResult
 interface SeriesRepository {
     suspend fun getPopularSeries(page: Int): Resource<SeriesResult>
     suspend fun getTopRatedSeries(page: Int): Resource<SeriesResult>
-    suspend fun getVideosFromSeries(seriesId: Int): Resource<VideosDto>
+    suspend fun getVideosFromSeries(seriesId: String): Resource<VideosDto>
     suspend fun searchSeriesByName(name: String, page: Int): Resource<SeriesDto>
 }

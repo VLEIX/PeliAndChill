@@ -94,7 +94,7 @@ class SeriesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getVideosFromSeries(seriesId: Int): Resource<VideosDto> {
+    override suspend fun getVideosFromSeries(seriesId: String): Resource<VideosDto> {
         return seriesRemoteDataSource.getVideosFromSeries(seriesId = seriesId)
     }
 
