@@ -22,6 +22,12 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(ActivityDetailBinding
         determineDestination()
     }
 
+    override fun finish() {
+        super.finish()
+
+        overridePendingTransition(R.anim.nothing, R.anim.slide_out_down)
+    }
+
     private fun determineDestination() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
