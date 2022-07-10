@@ -11,6 +11,7 @@ import com.frantun.peliandchill.domain.model.Movie
 import com.frantun.peliandchill.domain.model.Series
 import com.frantun.peliandchill.presentation.common.BaseActivity
 import com.frantun.peliandchill.presentation.ui.detail.movie.MovieDetailFragmentArgs
+import com.frantun.peliandchill.presentation.ui.detail.series.SeriesDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,10 +44,11 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(ActivityDetailBinding
                 }
             }
             FlowType.SERIES -> {
-//                navGraph.setStartDestination(R.id.consult_dest)
-//
-//                val args = ConsultFragmentArgs(getBranchSelected(), getLocationSelected())
-//                navController.setGraph(navGraph, args.toBundle())
+                navGraph.setStartDestination(R.id.navigation_series_detail)
+                getSeries()?.let { series ->
+                    val args = SeriesDetailFragmentArgs(series)
+                    navController.setGraph(navGraph, args.toBundle())
+                }
             }
             else -> Unit
         }

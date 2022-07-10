@@ -29,10 +29,12 @@
     <!-- Search Series -->
     <string name="search_series_by_name">Buscar serie por nombre…</string>
 
+    <!-- Detail -->
+    <string name="detail_vote_average_label">CALIFICACIÓN</string>
+    <string name="detail_vote_count_label">VOTOS</string>
+    <string name="detail_language_label">LENGUAJE</string>
+    <string name="detail_videos_label">Videos relacionados</string>
+
     <!-- Movie Detail -->
-    <string name="movie_detail_vote_average_label">CALIFICACIÓN</string>
-    <string name="movie_detail_vote_count_label">VOTOS</string>
-    <string name="movie_detail_language_label">LENGUAJE</string>
-    <string name="movie_detail_videos_label">Videos relacionados</string>
     <string name="movie_detail_video_content_description">Video de la película</string>
 </resources>

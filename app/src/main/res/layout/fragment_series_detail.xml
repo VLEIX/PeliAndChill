@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.detail.movie.MovieDetailFragment">
+    tools:context=".presentation.ui.detail.series.SeriesDetailFragment">
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/video_player_view"
@@ -20,7 +20,7 @@
         android:id="@+id/poster_image_view"
         android:layout_width="@dimen/dimen_0dp"
         android:layout_height="@dimen/dimen_0dp"
-        android:contentDescription="@string/movies_poster_content_description"
+        android:contentDescription="@string/series_poster_content_description"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/video_player_view"
         app:layout_constraintEnd_toEndOf="@id/video_player_view"
@@ -62,7 +62,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Movie name" />
+                tools:text="Series name" />
 
             <TextView
                 android:id="@+id/date_text_view"

@@ -18,10 +18,12 @@ import com.frantun.peliandchill.common.Constants
 import com.frantun.peliandchill.common.SeriesAdapterListener
 import com.frantun.peliandchill.databinding.FragmentSeriesBinding
 import com.frantun.peliandchill.domain.model.Series
+import com.frantun.peliandchill.other.navigateTo
 import com.frantun.peliandchill.other.setAsGone
 import com.frantun.peliandchill.other.setAsVisible
 import com.frantun.peliandchill.other.setSafeOnClickListener
 import com.frantun.peliandchill.presentation.common.BaseFragment
+import com.frantun.peliandchill.presentation.ui.detail.DetailActivity
 import com.frantun.peliandchill.presentation.ui.series.adapter.SeriesAdapter
 import com.frantun.peliandchill.presentation.ui.series.model.SeriesState
 import dagger.hilt.android.AndroidEntryPoint
@@ -167,12 +169,12 @@ class SeriesFragment : BaseFragment<FragmentSeriesBinding>(FragmentSeriesBinding
 
 
     private fun navigateToSearchSeries() {
-//        val action = MoviesFragmentDirections.moviesToSearchMovieAction()
-//        navigateTo(action)
+        val action = SeriesFragmentDirections.seriesToSearchSeriesAction()
+        navigateTo(action)
     }
 
     private fun navigateToSeriesDetail(series: Series) {
-//        navigateTo(DetailActivity.newIntentMovie(requireActivity(), movie))
+        navigateTo(DetailActivity.newIntentSeries(requireActivity(), series))
     }
 
     companion object {

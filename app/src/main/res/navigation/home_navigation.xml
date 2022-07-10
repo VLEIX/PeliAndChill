@@ -23,17 +23,31 @@
         android:id="@+id/navigation_series"
         android:name="com.frantun.peliandchill.presentation.ui.series.SeriesFragment"
         android:label="@string/title_series"
-        tools:layout="@layout/fragment_series" />
-
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.frantun.peliandchill.presentation.ui.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_series">
+        <action
+            android:id="@+id/series_to_search_series_action"
+            app:destination="@+id/navigation_search_series"
+            app:enterAnim="@animator/fragment_fade_enter"
+            app:exitAnim="@animator/fragment_fade_exit"
+            app:popEnterAnim="@animator/fragment_fade_enter"
+            app:popExitAnim="@animator/fragment_fade_exit" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search_movie"
         android:name="com.frantun.peliandchill.presentation.ui.search.movie.SearchMovieFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search_movie" />
+
+    <fragment
+        android:id="@+id/navigation_search_series"
+        android:name="com.frantun.peliandchill.presentation.ui.search.series.SearchSeriesFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search_series" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.frantun.peliandchill.presentation.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
