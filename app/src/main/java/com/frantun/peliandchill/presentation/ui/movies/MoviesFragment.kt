@@ -117,13 +117,18 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
     }
 
     private fun selectTabItem1() {
-        binding.tabBar.selectedTabItem.animate().x(0F).duration = 100
+        binding.tabBar.selectedTabItem.animate().x(0F).duration = ANIMATION_DURATION
     }
 
-    private fun selectTabItem2() {
+    private fun selectTabItem2(isAnimated: Boolean) {
         binding.tabBar.selectedTabItem.apply {
             post {
-                animate().x(binding.tabBar.selectedTabItem.width.toFloat()).duration = 100
+                if (isAnimated) {
+                    animate().x(binding.tabBar.selectedTabItem.width.toFloat()).duration =
+                        ANIMATION_DURATION
+                } else {
+                    translationX = binding.tabBar.selectedTabItem.width.toFloat()
+                }
             }
         }
     }
@@ -133,14 +138,18 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
             is MoviesState.SelectedCategoryType -> onSelectedCategoryType(state.categoryType)
             is MoviesState.ShowLoading -> onShowLoading()
             is MoviesState.RetrievedMovies -> onRetrievedMovies(state.movies)
+            is MoviesState.Initialized -> onInitialized(state.categoryType, state.movies)
             else -> Unit
         }
     }
 
-    private fun onSelectedCategoryType(categoryType: Constants.CategoryType) {
+    private fun onSelectedCategoryType(
+        categoryType: Constants.CategoryType,
+        isAnimated: Boolean = true
+    ) {
         when (categoryType) {
             Constants.CategoryType.TYPE_POPULAR -> selectTabItem1()
-            Constants.CategoryType.TYPE_TOP_RATED -> selectTabItem2()
+            Constants.CategoryType.TYPE_TOP_RATED -> selectTabItem2(isAnimated)
         }
     }
 
@@ -153,6 +162,11 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
         moviesAdapter.submitList(movies)
     }
 
+    private fun onInitialized(categoryType: Constants.CategoryType, movies: List<Movie>) {
+        onSelectedCategoryType(categoryType, false)
+        onRetrievedMovies(movies)
+    }
+
     private fun navigateToSearchMovie() {
         val action = MoviesFragmentDirections.moviesToSearchMovieAction()
         navigateTo(action)
@@ -160,5 +174,9 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(FragmentMoviesBinding
 
     private fun navigateToMovieDetail(movie: Movie) {
         navigateTo(DetailActivity.newIntentMovie(requireActivity(), movie))
+    }
+
+    companion object {
+        private const val ANIMATION_DURATION = 100L
     }
 }

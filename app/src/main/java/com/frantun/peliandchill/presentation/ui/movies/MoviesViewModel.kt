@@ -60,8 +60,9 @@ class MoviesViewModel @Inject constructor(
     fun initState() {
         if (!this::categoryType.isInitialized) {
             categoryTypeFlow.value = Constants.CategoryType.TYPE_POPULAR
+        } else {
+            _state.value = MoviesState.Initialized(categoryType, movies)
         }
-        _state.value = MoviesState.SelectedCategoryType(categoryType)
     }
 
     private fun tryToGetMovies(lastItemIndex: Int) {
