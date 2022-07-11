@@ -15,6 +15,9 @@ Flavio Franco
 ## API
 * https://developers.themoviedb.org/3/getting-started/introduction
 
+## Design
+* https://dribbble.com/shots/4869891-Movies-app
+
 ### Used libraries
 * Dependency injection: https://developer.android.com/training/dependency-injection/hilt-android
 * Architecture: Clean Architecture with MVVM
