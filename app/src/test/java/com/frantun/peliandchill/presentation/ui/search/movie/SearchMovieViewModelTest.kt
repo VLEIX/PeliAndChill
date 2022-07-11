@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Before
 import org.junit.Test
 
 /**
@@ -25,9 +26,8 @@ class SearchMovieViewModelTest : BaseCoroutineViewModelStateTest<SearchMovieStat
 
     private lateinit var sut: SearchMovieViewModel
 
-    override fun before() {
-        super.before()
-
+    @Before
+    fun before() {
         sut = SearchMovieViewModel(
             SearchMovieByNameUseCase(FakeMoviesRepositoryImpl(moviesPopular(), videos()))
         )

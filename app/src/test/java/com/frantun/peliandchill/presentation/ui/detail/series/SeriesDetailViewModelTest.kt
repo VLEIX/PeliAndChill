@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Before
 import org.junit.Test
 
 /**
@@ -26,9 +27,8 @@ class SeriesDetailViewModelTest : BaseCoroutineViewModelStateTest<SeriesDetailSt
 
     private lateinit var sut: SeriesDetailViewModel
 
-    override fun before() {
-        super.before()
-
+    @Before
+    fun before() {
         sut = SeriesDetailViewModel(
             GetVideosFromSeriesUseCase(FakeSeriesRepositoryImpl(seriesPopular(), videos()))
         )

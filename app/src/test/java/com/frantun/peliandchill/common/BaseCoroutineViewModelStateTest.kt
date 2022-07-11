@@ -7,7 +7,7 @@ import org.junit.After
  * Base class for ViewModels that use sealed class state object.
  */
 @ExperimentalCoroutinesApi
-open class BaseCoroutineViewModelStateTest<T> : BaseCoroutineViewModelTest() {
+open class BaseCoroutineViewModelStateTest<T> : BaseCoroutineTest() {
 
     protected var stateList = mutableListOf<T>()
 
