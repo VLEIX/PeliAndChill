@@ -9,6 +9,11 @@ Flavio Franco
 
 ## Details
 * Dark mode support
+* Offline support
+* Pagination support
+
+## API
+* https://developers.themoviedb.org/3/getting-started/introduction
 
 ### Used libraries
 * Dependency injection: https://developer.android.com/training/dependency-injection/hilt-android
