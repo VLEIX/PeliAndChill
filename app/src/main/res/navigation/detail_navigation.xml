@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_navigation">
+
+    <fragment
+        android:id="@+id/navigation_movie_detail"
+        android:name="com.frantun.peliandchill.presentation.ui.detail.movie.MovieDetailFragment"
+        android:label="@string/title_movie_detail"
+        tools:layout="@layout/fragment_movie_detail">
+        <argument
+            android:name="movie"
+            app:argType="com.frantun.peliandchill.domain.model.Movie"
+            app:nullable="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_series_detail"
+        android:name="com.frantun.peliandchill.presentation.ui.detail.series.SeriesDetailFragment"
+        android:label="@string/title_series_detail"
+        tools:layout="@layout/fragment_series_detail">
+        <argument
+            android:name="series"
+            app:argType="com.frantun.peliandchill.domain.model.Series"
+            app:nullable="false" />
+    </fragment>
+</navigation>
