@@ -11,6 +11,12 @@ buildscript {
         lottie_version = '5.2.0'
         youtube_player_version = '11.0.1'
         okhttp3_version = '4.9.3'
+        core_testing_version = '2.1.0'
+        coroutines_test_version = '1.5.0'
+        junit_jupiter_version = '5.6.0'
+        assertj_core_version = '3.11.1'
+        mockk_version = '1.12.4'
+        turbine_version = '0.8.0'
     }
 
     dependencies {

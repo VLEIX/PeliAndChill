@@ -4,7 +4,6 @@ import com.frantun.peliandchill.domain.model.Video
 import com.google.gson.annotations.SerializedName
 
 data class VideosDto(
-    val id: Int,
     @SerializedName("results")
     val videos: List<Video>
 )
